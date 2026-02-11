@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маджонг · Нефритовый путь</title>
+    <!-- Красивые восточные и западные шрифты, нефритовая палитра -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@200;300;400;500;600&family=Marcellus&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (иконки) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e8f1e6;
+            font-family: 'Cormorant Garamond', 'Inter', serif;
+            color: #1e3a2f;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 10% 30%, rgba(180, 210, 175, 0.2) 0%, transparent 25%),
+                              radial-gradient(circle at 90% 70%, rgba(130, 180, 150, 0.15) 0%, transparent 30%);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2.2rem 2rem;
+            backdrop-filter: blur(2px);
+        }
+
+        :root {
+            --jade-deep: #0f4c3a;
+            --jade-soft: #3b7a5e;
+            --jade-pale: #cadfd1;
+            --jade-mist: #d4eae0;
+            --jade-gold: #c2a758;
+            --jade-cream: #f4f9f2;
+            --ink: #1e3a2f;
+            --bamboo: #5f8a7a;
+        }
+
+        .chinese {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: var(--jade-deep);
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            font-family: 'Marcellus', 'Cormorant Garamond', serif;
+            margin-bottom: 1rem;
+            color: var(--jade-deep);
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            border-bottom: 2px solid var(--jade-pale);
+            padding-bottom: 0.5rem;
+        }
+        .section-title span {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.2rem;
+            color: var(--jade-soft);
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding: 1.2rem 0 0.8rem;
+            border-bottom: 1px solid var(--jade-pale);
+            position: relative;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-name {
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'Marcellus', serif;
+            color: #0a3b2e;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            line-height: 1;
+        }
+        .game-name .ch-big {
+            font-size: 4.2rem;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 400;
+            color: #246b55;
+            text-shadow: 2px 2px 0 rgba(190, 215, 190, 0.5);
+        }
+
+        .slogan {
+            font-size: 1.6rem;
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+            color: #2f6652;
+            margin-top: 0.3rem;
+            border-left: 5px solid #9bbf8b;
+            padding-left: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-play {
+            background: linear-gradient(145deg, #1a5e49, #0f4c3a);
+            border-radius: 60px 12px 60px 12px;
+            padding: 1rem 2.2rem;
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 600;
+            font-family: 'Marcellus', serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(255, 242, 210, 0.5);
+            box-shadow: 12px 12px 0 rgba(30, 58, 47, 0.25);
+            transition: 0.2s;
+            letter-spacing: 2px;
+        }
+        .hero-play i {
+            font-size: 1.8rem;
+            color: #ffecb3;
+        }
+        .hero-play span {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.9rem;
+            margin-left: 5px;
+        }
+        .hero-play:hover {
+            background: #216b56;
+            box-shadow: 6px 6px 0 #1e3a2f;
+            transform: translate(6px, 6px);
+        }
+
+        /* СГЕНЕРИРОВАННАЯ КАРТИНКА МАДЖОНГА */
+        .hero-image {
+            margin: 3rem auto 2.5rem;
+            max-width: 1000px;
+            width: 100%;
+            border-radius: 32px 12px 32px 12px;
+            overflow: hidden;
+            box-shadow: 24px 24px 0 rgba(45, 90, 70, 0.12);
+            border: 2px solid var(--jade-pale);
+            transition: 0.3s ease;
+            background: #f6fbf8;
+        }
+        .hero-image:hover {
+            transform: translateY(-8px);
+            box-shadow: 28px 28px 0 rgba(30, 80, 60, 0.15);
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 4px solid var(--jade-soft);
+        }
+        .image-caption {
+            padding: 1.5rem 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--jade-deep);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-top: 1px solid var(--jade-pale);
+        }
+        .image-caption span {
+            font-family: 'Noto Serif SC', serif;
+            color: #3a7863;
+            font-size: 1.8rem;
+        }
+
+        .jade-divider {
+            width: 100%;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--jade-soft);
+            font-size: 1.6rem;
+            word-spacing: 12px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2.8rem 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--jade-pale);
+            border-radius: 32px 8px 32px 8px;
+            padding: 2rem 1.5rem;
+            box-shadow: 8px 8px 0 rgba(57, 106, 84, 0.1);
+            transition: 0.2s;
+            background: linear-gradient(165deg, #ffffff, #f9fffd);
+        }
+        .feature-icon {
+            font-size: 2.8rem;
+            color: var(--jade-soft);
+            margin-bottom: 0.5rem;
+        }
+        .feature-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            font-family: 'Marcellus', serif;
+            display: flex;
+            justify-content: space-between;
+            color: #1c5443;
+        }
+        .feature-desc {
+            color: #2b5a4b;
+            font-size: 1.05rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            margin-top: 0.8rem;
+        }
+
+        .testimonials-area {
+            background: var(--jade-mist);
+            padding: 3rem 2.5rem;
+            border-radius: 64px 16px 64px 16px;
+            margin: 4rem 0;
+            border: 1px solid #aac7b6;
+            box-shadow: inset 0 0 0 1px #f1fff0, 12px 12px 0 #a6c3b2;
+            position: relative;
+        }
+        .testimonial-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .review {
+            background: white;
+            padding: 1.8rem 2rem;
+            border-radius: 24px 4px 24px 4px;
+            flex: 1 1 250px;
+            border: 1px solid #bedace;
+            box-shadow: 6px 6px 0 #7ba188;
+        }
+        .review-text {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: #1f443b;
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 1rem;
+        }
+        .review-author {
+            font-weight: 600;
+            color: #0f4c3a;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .chinese-quote {
+            font-family: 'Noto Serif SC', serif;
+            color: #587f6b;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .double-button {
+            text-align: center;
+            margin: 3.5rem 0 2rem;
+        }
+        .btn-jade {
+            background: #0f4c3a;
+            border: none;
+            padding: 1.2rem 3.8rem;
+            border-radius: 80px 12px 80px 12px;
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 14px 14px 0 #17382e;
+            border: 1px solid #c5d9b7;
+            font-family: 'Marcellus', serif;
+            transition: 0.2s;
+            letter-spacing: 3px;
+        }
+        .btn-jade i {
+            margin-right: 10px;
+            color: #ffe1a4;
+        }
+        .btn-jade:hover {
+            background: #216852;
+            box-shadow: 6px 6px 0 #17382e;
+            transform: translate(8px, 8px);
+        }
+
+        .footer-seal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px solid #b1cfc0;
+            color: #2d6957;
+            font-size: 1.05rem;
+        }
+        .seal-chinese {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2rem;
+            color: #397a62;
+            background: #e0f0e6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40% 8px 40% 8px;
+        }
+
+        @media (max-width: 900px) {
+            .game-name { font-size: 3rem; }
+            .hero-play { font-size: 1.3rem; padding: 0.8rem 1.6rem; }
+        }
+
+        .jade-bg-tile {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.1;
+            font-size: 5rem;
+            z-index: -1;
+            color: #1e5e4b;
+        }
+    </style>
+</head>
+<body>
+    <div class="jade-bg-tile">
+        🀄 🀇 🀈 🀉 🀍 🀎 🀏
+    </div>
+    <div class="container">
+
+        <div class="hero">
+            <div class="hero-left">
+                <div class="game-name">
+                    <span class="ch-big">麻将</span> Маджонг
+                </div>
+                <div class="slogan">
+                    Нефритовый путь · 玉之路 
+                    <span style="font-family: 'Noto Serif SC'; margin-left: 8px;">和</span>
+                </div>
+            </div>
+            <a href="https://www.mahjongg.com/play/" target="_blank" class="hero-play">
+                <i class="fas fa-play"></i> ИГРАТЬ 
+                <span>🀫</span>
+            </a>
+        </div>
+
+        <!-- СГЕНЕРИРОВАННАЯ КАРТИНКА МАДЖОНГА В НЕФРИТОВОМ СТИЛЕ -->
+        <div class="hero-image">
+            <img src="https://placecats.com/1280/720" alt="Сгенерированный маджонг" style="display: none;">
+            <!-- Уникальная сгенерированная картинка с помощью AI-сервиса (Pollinations) -->
+            <img src="https://image.pollinations.ai/prompt/Mahjong_tiles_jade_green_dragon_bamboo_Chinese_calligraphy_zen_atmosphere_soft_lighting_4k?width=1280&height=720&nologo=true" 
+                 alt="Сгенерированный нефритовый маджонг">
+            <div class="image-caption" style="text-align: center;">
+                <span>🐉</span> · Нефритовый дракон  ·
+                <span>灵龙</span>
+            </div>
+        </div>
+
+        <div class="jade-divider">
+            𓃥  ·  ✦  ·  玉  ·  ✦  ·  🀫  ·  ✦  ·  竹  ·  ✦
+        </div>
+
+        <span class="section-title">
+            <span>⚘</span> Ритуалы нефритового зала
+        </span>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                <div class="feature-title">
+                    Набор «Нефрит» <span>玉</span>
+                </div>
+                <div class="feature-desc">
+                    Лимитированная серия плиток из зеленого авантюрина и бамбука. В футляре из шелка с иероглифом «Блаженство».
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-camera-retro"></i></div>
+                <div class="feature-title">
+                    AR-фильтр «Дракон» <span>龙</span>
+                </div>
+                <div class="feature-desc">
+                    Оживите плитки в пространстве. Нефритовое сияние, иероглифы удачи вокруг лица — гости делятся в соцсетях.
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                <div class="feature-title">
+                    Чайная коробка <span>茶</span>
+                </div>
+                <div class="feature-desc">
+                    Улун с женьшенем, печенье «Плитка счастья». Дизайн в нефритово-золотых тонах, палочки с иероглифами.
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                <div class="feature-title">
+                    Блюдо «Южный ветер» <span>南</span>
+                </div>
+                <div class="feature-desc">
+                    Корейско-китайский сет: кимчи-манду с нефритовым соусом. Брендированная упаковка и салфетки с маджонг-символами.
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; background: linear-gradient(135deg, #e1f0e6, #f1f9f0); padding: 2.2rem; border-radius: 48px 16px 48px 16px; margin: 2.8rem 0; border: 1px solid #b4d3c2;">
+            <div style="flex: 1 1 200px; padding-right: 1.5rem;">
+                <div style="font-size: 2.5rem; font-family: 'Noto Serif SC'; color: #2b755a;">眾</div>
+                <h3 style="font-family: 'Marcellus'; font-size: 1.8rem; color: #1a4d3e; font-weight: 500;">АУДИТОРИЯ</h3>
+                <p style="font-size: 1.15rem; color: #1f4d40; max-width: 300px;">Культурно любопытные, коллекционеры, цифровые эстеты. От поклонников K-beauty до знатоков чайных церемоний. Маджонг сегодня — это тихая роскошь.</p>
+            </div>
+            <div style="flex: 1 1 200px; border-left: 2px solid #84af9b; padding-left: 2rem;">
+                <div style="font-size: 2.5rem; font-family: 'Noto Serif SC'; color: #2b755a;">缘</div>
+                <h3 style="font-family: 'Marcellus'; font-size: 1.8rem; color: #1a4d3e;">РЕЛЕВАНТНОСТЬ</h3>
+                <p style="font-size: 1.15rem; color: #1f4d40; max-width: 300px;">От клубных турниров в Сеуле до арт-вечеринок в Бусане. Гости не просто смотрят — они создают контент и традиции за зеленым столом.</p>
+            </div>
+            <div style="flex: 0 0 80px; font-family: 'Noto Serif SC'; font-size: 2.3rem; color: #3e8269; text-align: right;">
+                東 · 南
+            </div>
+        </div>
+
+        <div class="testimonials-area">
+            <div style="display: flex; gap: 1rem; align-items: baseline;">
+                <span style="font-size: 2.8rem; font-family: 'Noto Serif SC'; color: #195542;">评</span>
+                <h2 style="font-family: 'Marcellus'; font-size: 2.2rem; color: #194d3b; letter-spacing: 2px;">Отзывы о нефритовом маджонге</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="review">
+                    <div class="review-text">
+                        <i class="fas fa-quote-left" style="color: #668c7c;"></i> 
+                        Плитки словно светятся изнутри — это лучший дизайн, который я видела. Нефритовый набор стал украшением нашего дома.
+                    </div>
+                    <div class="review-author">
+                        <i class="fas fa-circle" style="font-size: 0.5rem; color: #2e7d64;"></i> Анна Ч., коллекционер
+                    </div>
+                    <div class="chinese-quote">—— 如玉如竹，清雅脱俗</div>
+                </div>
+                <div class="review">
+                    <div class="review-text">
+                        <i class="fas fa-quote-left" style="color: #668c7c;"></i> 
+                        Я веду турниры в Сеуле, и это издание маджонга — хит среди молодых. Особенно AR-фильтр с драконом. Все хотят «нефритовый» кадр.
+                    </div>
+                    <div class="review-author">
+                        <i class="fas fa-circle" style="color: #2e7d64;"></i> Ким Минсок, организатор
+                    </div>
+                    <div class="chinese-quote">—— 四風龍吟，玉振金聲</div>
+                </div>
+                <div class="review">
+                    <div class="review-text">
+                        <i class="fas fa-quote-left" style="color: #668c7c;"></i> 
+                        В детстве играла с бабушкой, теперь купила нефритовый набор. Качество потрясающее, даже пахнет бамбуком. Спасибо за возрождение традиции.
+                    </div>
+                    <div class="review-author">
+                        <i class="fas fa-circle" style="color: #2e7d64;"></i> Екатерина С., Санкт-Петербург
+                    </div>
+                    <div class="chinese-quote">—— 青出於藍，更勝於藍</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="double-button">
+            <a href="https://www.mahjongg.com/play/" target="_blank" class="btn-jade">
+                <i class="fas fa-dragon"></i> НАЧАТЬ ПУТЬ 
+                <span style="font-family: 'Noto Serif SC'; font-size: 1.9rem;"> 玉</span>
+            </a>
+            <p style="margin-top: 1.2rem; color: #2f6b59; font-size: 1.1rem; font-style: italic;">
+                Играйте бесплатно. Нефритовая гармония ждет.
+            </p>
+        </div>
+
+        <div style="display: flex; gap: 2.5rem; justify-content: flex-end; align-items: baseline; margin: 2rem 0 1rem;">
+            <span style="font-family: 'Noto Serif SC'; font-size: 1.6rem; color: #246b55;">成都 · 京都 · 杭州</span>
+            <span style="font-family: 'Inter'; color: #2d7a63; font-weight: 300;">Chengdu · Kyoto · Hangzhou</span>
+        </div>
+
+        <div class="footer-seal">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-leaf" style="color: #3c7b63; font-size: 1.8rem;"></i>
+                <span style="font-family: 'Cormorant Garamond'; font-size: 1.3rem;"> · Нефритовая коллекция</span>
+            </div>
+            <div class="seal-chinese">
+                玉 · 麻将
+            </div>
+        </div>
+        <div style="text-align: right; margin-top: 0.5rem; font-family: 'Noto Serif SC'; color: #558a78; font-size: 0.95rem; opacity: 0.9;">
+              ⿅
+        </div>
+    </div>
+    <div style="position: fixed; left: 10px; top: 50%; opacity: 0.08; font-size: 6rem; transform: rotate(-10deg); user-select: none; pointer-events: none; color: #1e6b52;">
+        🀀
+    </div>
+</body>
+</html>
